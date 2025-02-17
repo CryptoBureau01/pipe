@@ -176,7 +176,7 @@ pipe_points() {
 
     # Pop points command run karna
     print_info "Fetching node points (Note: Points are not active yet)..."
-    ./pop --points-route
+    ./pop --points
 
     print_info "Points check complete!"
 
