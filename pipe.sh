@@ -61,16 +61,19 @@ install_dependency() {
     # Allow port 8003 in firewall
     print_info "Allowing port 8003 in UFW..."
     sudo ufw allow 8003
+    sudo ufw allow 8003/tcp
     sleep 1
 
     # Allow port 443 in firewall (for HTTPS traffic)
     print_info "Allowing port 443 in UFW..."
     sudo ufw allow 443
+    sudo ufw allow 443/tcp
     sleep 1
 
     # Allow port 80 in firewall (for HTTP traffic)
     print_info "Allowing port 80 in UFW..."
     sudo ufw allow 80
+    sudo ufw allow 80/tcp
     sleep 1
 
     # Reload UFW to apply changes
