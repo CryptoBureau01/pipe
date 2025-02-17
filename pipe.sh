@@ -128,22 +128,25 @@ pipe_data() {
     read -p "Enter your Solana Public Key: " pubKey
     sleep 1
 
-    # Pop command ko configuration ke saath run karna
+    # Ensure pop binary exists
+    if [ ! -f "./pipe/pop" ]; then
+        print_info "Error: pop binary not found! Make sure you have downloaded it."
+        exit 1
+    fi
+
+    # Saving Pipe Network node configuration
     print_info "Saving Pipe Network node configuration..."
     echo "./pop \\
   --ram 4 \\               # 4GB RAM allocate karega
   --max-disk 150 \\        # Max 150GB disk space use karega
-  --cache-dir /data \\     # Cache `/data` folder mein store hoga
-  --pubKey $pubKey         # User ka Solana public key" > pop_config.sh
-    sleep 1
-
-    # Pop configuration ko executable banana
-    chmod +x pop_config.sh
+  --cache-dir ./pipe/download_cache \\     # Cache pipe folder mein store hoga
+  --pubKey $pubKey         # User ka Solana public key" > ./pipe/pop_config.sh
     sleep 1
 
     # Pop node start karna
     print_info "Starting Pipe Network node..."
-    ./pop --ram 4 --max-disk 150 --cache-dir /data --pubKey $pubKey
+    cd pipe && ./pop --ram 4 --max-disk 150 --cache-dir ./download_cache --pubKey "$pubKey"
+    sleep 1
 
     print_info "Pipe Network node setup complete!"
 
